@@ -80,11 +80,13 @@ export default function ScannerPage() {
   const [loading, setLoading] = useState(false)
   const [manualId, setManualId] = useState('')
   const [scanKey, setScanKey] = useState(0)
+  const [username, setUsername] = useState('')
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     const role = localStorage.getItem('role')
     if (!token || !['admin', 'scanner'].includes(role)) router.replace('/login')
+    setUsername(localStorage.getItem('username') || 'Scanner')
   }, [router])
 
   const processScan = useCallback(async (passId) => {
@@ -126,7 +128,7 @@ export default function ScannerPage() {
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
         <div>
           <h1 className="font-bold text-lg">Hilabi Scanner</h1>
-          <p className="text-gray-400 text-xs">{localStorage.getItem?.('username') || 'Scanner'}</p>
+          <p className="text-gray-400 text-xs">{username}</p>
         </div>
         <button onClick={logout} className="text-gray-400 hover:text-white text-sm">Logout</button>
       </div>
